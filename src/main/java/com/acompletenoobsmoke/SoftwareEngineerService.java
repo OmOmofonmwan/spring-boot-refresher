@@ -9,9 +9,17 @@ import java.util.List;
 public class SoftwareEngineerService {
 
     private final SoftwareEngineerRepository softwareEngineerRepository;
+    private final AIService aiService;
 
-    public SoftwareEngineerService(SoftwareEngineerRepository softwareEngineerRepository) {
+    public SoftwareEngineerService(SoftwareEngineerRepository softwareEngineerRepository, AIService aiService) {
         this.softwareEngineerRepository = softwareEngineerRepository;
+        this.aiService = aiService;
+    }
+
+    public String getResponseFromAI(String prompt) {
+        if (prompt == null || prompt.isEmpty())
+            throw new IllegalArgumentException("Prompt cannot be null or empty");
+        return aiService.chat(prompt);
     }
 
     public List<SoftwareEngineer> getSoftwareEngineers() {

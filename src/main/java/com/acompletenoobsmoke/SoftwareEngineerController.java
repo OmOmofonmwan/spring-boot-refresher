@@ -42,7 +42,12 @@ public class SoftwareEngineerController {
             return e.getMessage();
         }
         return "Update Completed";
-
     }
+
+    @GetMapping(path = "prompt")
+    public String getAIResponse() {
+        return softwareEngineerService.getResponseFromAI("Jackie Chan Films");
+    }
+
 
 }

@@ -1,0 +1,14 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+GET http://localhost:8080/api/v1/software-engineers/prompt
+Accept: application/json
+
+{
+    "prompt": "Leetcode #1 Solution"
+}
+
+###
+GET http://localhost:8080/api/v1/software-engineers
