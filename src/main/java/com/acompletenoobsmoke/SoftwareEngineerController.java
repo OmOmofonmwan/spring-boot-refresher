@@ -1,8 +1,6 @@
 package com.acompletenoobsmoke;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -10,17 +8,30 @@ import java.util.List;
 @RequestMapping("api/v1/software-engineers")
 public class SoftwareEngineerController {
 
-    @GetMapping
-    public List<SoftwareEngineer>  getEngineers() {
-        return engineerList();
+    private final SoftwareEngineerService softwareEngineerService;
+
+    public SoftwareEngineerController(SoftwareEngineerService softwareEngineerService) {
+        this.softwareEngineerService = softwareEngineerService;
     }
 
-    private List<SoftwareEngineer> engineerList() {
-        return List.of(new SoftwareEngineer(1, "Osaretin", "Omofonmwan", "Java"),
-                       new SoftwareEngineer(2, "Victoria", "Marshall", "Javascript"),
-                       new SoftwareEngineer(3, "Adedayo", "Uwensuyi", "Python"),
-                       new SoftwareEngineer(4, "Ajinboye", "Uwensuyi", "ServiceNow/Javascript"),
-                       new SoftwareEngineer(5, "Dustin", "Carpenter", "C++")
-        );
+    @GetMapping
+    public List<SoftwareEngineer>  getEngineers() {
+        return softwareEngineerService.getSoftwareEngineers();
     }
+
+    @PostMapping
+    public void addSoftwareEngineer(@RequestBody SoftwareEngineer newSoftwareEngineer) {
+        softwareEngineerService.addSoftwareEngineer(newSoftwareEngineer);
+    }
+
+    @GetMapping(path = "{id}")
+    public SoftwareEngineer  getSoftwareEngineer(@PathVariable Integer id) {
+        return softwareEngineerService.getSoftwareEngineer(id);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteSoftwareEngineer(@PathVariable Integer id) {
+        softwareEngineerService.deleteSoftwareEngineer(id);
+    }
+
 }
