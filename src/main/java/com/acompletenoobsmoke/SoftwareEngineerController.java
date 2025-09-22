@@ -34,4 +34,15 @@ public class SoftwareEngineerController {
         softwareEngineerService.deleteSoftwareEngineer(id);
     }
 
+    @PutMapping(path = "{id}")
+    public String updateSoftwareEngineer(@PathVariable Integer id, @RequestBody SoftwareEngineer newSoftwareEngineer) {
+        try {
+            softwareEngineerService.updateSoftwareEngineer(id, newSoftwareEngineer);
+        } catch (IllegalArgumentException e) {
+            return e.getMessage();
+        }
+        return "Update Completed";
+
+    }
+
 }

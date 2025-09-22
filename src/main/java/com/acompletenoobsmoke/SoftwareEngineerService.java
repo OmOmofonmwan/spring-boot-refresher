@@ -1,5 +1,6 @@
 package com.acompletenoobsmoke;
 
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,17 @@ public class SoftwareEngineerService {
     }
 
     public void deleteSoftwareEngineer(Integer id) {
+        if (!softwareEngineerRepository.existsById(id))
+            throw new IllegalStateException("SoftwareEngineer with id " + id + " not found");
         softwareEngineerRepository.deleteById(id);
+    }
+
+    public void updateSoftwareEngineer(Integer id, SoftwareEngineer newSoftwareEngineer) {
+        SoftwareEngineer updated = softwareEngineerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("SoftwareEngineer with id "
+                + id + " does not exist"));
+        updated.setFirstName(newSoftwareEngineer.getFirstName());
+        updated.setLastName(newSoftwareEngineer.getLastName());
+        updated.setTechStack(newSoftwareEngineer.getTechStack());
+        softwareEngineerRepository.save(updated);
     }
 }
